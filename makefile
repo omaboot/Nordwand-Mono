@@ -1,4 +1,4 @@
-.PHONY: install build build-otf install-mac
+.PHONY: install build build-otf build-ttf web-cut install-mac
 
 FONT_VERSION ?= $(shell git describe --tags --abbrev=0 2>/dev/null || echo 1.0.0)
 
@@ -14,6 +14,13 @@ build:
 
 build-font:
 	uv run python -m generate_font --font-version $(FONT_VERSION) --web-font
+
+build-ttf:
+	uv run python -m generate_font --font-version $(FONT_VERSION) --ttf
+
+# A small Regular and Bold for the web (Latin-1, punctuation, arrows), in fonts/web-cut/
+web-cut: build-ttf
+	uv run python -m scripts.web_cut
 
 build-otf:
 	uv run python -m generate_font --font-version $(FONT_VERSION) --otf
