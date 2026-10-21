@@ -656,7 +656,7 @@ def build_font(
 
     active_glyphs, promoted = select_style_glyphs(all_glyphs, italic)
 
-    cmap = {0x20: "space"}
+    cmap = {0x20: "space", 0xA0: "space"}  # the no-break space is a space
     ligature_glyphs = []
     alternate_glyphs = []
     for g in active_glyphs:
